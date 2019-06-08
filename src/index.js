@@ -2,23 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 
-// class Square extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       value: null
-//     };
-//   }
-
-//   render() {
-//     return (
-//       <button className="square" onClick={() => this.props.onClick()}>
-//         {this.props.value}
-//       </button>
-//     );
-//   }
-// }
-
 function Square(props) {
   return (
     <button className="square" onClick={props.onClick}>
@@ -48,48 +31,18 @@ function calculateWinner(squares) {
 }
 
 class Board extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     squares: Array(9).fill(null),
-  //     xIsNext: true
-  //   };
-  //   this.getNextPlayer = () => {
-  //     return this.state.xIsNext ? "X" : "O";
-  //   };
-  // }
-
-  // handleClick(i) {
-  //   const squares = this.state.squares.slice();
-  //   if (calculateWinner(squares) || squares[i]) {
-  //     return;
-  //   }
-  //   squares[i] = this.getNextPlayer();
-  //   this.setState({ squares, xIsNext: !this.state.xIsNext });
-  // }
-
   renderSquare(i) {
     return (
       <Square
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
-        // onClick={() => this.handleClick(i)}
       />
     );
   }
 
   render() {
-    // const winner = calculateWinner(this.state.squares);
-    // let status;
-    // if (winner) {
-    //   status = "Winner: " + winner;
-    // } else {
-    //   status = "Next player: " + this.getNextPlayer();
-    // }
-
     return (
       <div>
-        {/* <div className="status">{status}</div> */}
         <div className="board-row">
           {this.renderSquare(0)}
           {this.renderSquare(1)}
