@@ -2,13 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 
-function Square(props) {
-  return (
-    <button className="square" onClick={props.onClick}>
-      {props.value}
-    </button>
-  );
-}
+// Display the location for each move in the format (col, row) in the move history list.
+// Bold the currently selected item in the move list.
+// Rewrite Board to use two loops to make the squares instead of hardcoding them.
+// Add a toggle button that lets you sort the moves in either ascending or descending order.
+// When someone wins, highlight the three squares that caused the win.
+// When no one wins, display a message about the result being a draw.
 
 function calculateWinner(squares) {
   const lines = [
@@ -30,11 +29,20 @@ function calculateWinner(squares) {
   return null;
 }
 
+function Square(props) {
+  return (
+    <button className="square" onClick={props.onClick}>
+      {props.value}
+    </button>
+  );
+}
+
 class Board extends React.Component {
   renderSquare(i) {
     return (
       <Square
         value={this.props.squares[i]}
+        place={i}
         onClick={() => this.props.onClick(i)}
       />
     );
@@ -110,9 +118,15 @@ class Game extends React.Component {
 
     const moves = history.map((step, move) => {
       const desc = move ? "Go to move #" + move : "Go to game start";
+      const isSelectedMove = move === this.state.stepNumber;
       return (
         <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
+          <button
+            onClick={() => this.jumpTo(move)}
+            style={isSelectedMove ? { fontWeight: 700 } : {}}
+          >
+            {desc}
+          </button>
         </li>
       );
     });
