@@ -4,7 +4,7 @@ import "./index.css";
 
 // DONE Display the location for each move in the format (col, row) in the move history list.
 // DONE Bold the currently selected item in the move list.
-// Rewrite Board to use two loops to make the squares instead of hardcoding them.
+// DONE Rewrite Board to use two loops to make the squares instead of hardcoding them.
 // Add a toggle button that lets you sort the moves in either ascending or descending order.
 // When someone wins, highlight the three squares that caused the win.
 // When no one wins, display a message about the result being a draw.
@@ -30,8 +30,11 @@ function calculateWinner(squares) {
 }
 
 function Square(props) {
+  let style = {
+    color: String(props.value) === "X" ? "red" : "green"
+  };
   return (
-    <button className="square" onClick={props.onClick}>
+    <button className="square" onClick={props.onClick} style={style}>
       {props.value}
     </button>
   );
