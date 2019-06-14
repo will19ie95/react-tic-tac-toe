@@ -2,8 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 
-// Display the location for each move in the format (col, row) in the move history list.
-// Bold the currently selected item in the move list.
+// DONE Display the location for each move in the format (col, row) in the move history list.
+// DONE Bold the currently selected item in the move list.
 // Rewrite Board to use two loops to make the squares instead of hardcoding them.
 // Add a toggle button that lets you sort the moves in either ascending or descending order.
 // When someone wins, highlight the three squares that caused the win.
@@ -71,13 +71,38 @@ class Board extends React.Component {
   }
 }
 
+function calculateXCoordinate(position) {
+  const x = position % 3;
+  return x;
+}
+
+function calculateYCoordinate(position) {
+  const x = calculateXCoordinate(position);
+  const y = (position - x) / 3;
+  return y;
+}
+
+function RenderCoordinate(props) {
+  return (
+    <span>
+      {props.position !== null && (
+        <span>
+          ({calculateXCoordinate(props.position)},
+          {calculateYCoordinate(props.position)})
+        </span>
+      )}
+    </span>
+  );
+}
+
 class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       history: [
         {
-          squares: Array(9).fill(null)
+          squares: Array(9).fill(null),
+          position: null
         }
       ],
       stepNumber: 0,
@@ -98,7 +123,7 @@ class Game extends React.Component {
     }
     squares[i] = this.getNextPlayer();
     this.setState({
-      history: history.concat([{ squares }]),
+      history: history.concat([{ squares, position: i }]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext
     });
@@ -127,6 +152,7 @@ class Game extends React.Component {
           >
             {desc}
           </button>
+          <RenderCoordinate position={step.position} />
         </li>
       );
     });
