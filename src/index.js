@@ -37,12 +37,21 @@ function Square(props) {
   );
 }
 
+function convert1DArrayTo2D(array) {
+  const newArray = [];
+  while (array.length) {
+    newArray.push(array.splice(0, 3));
+  }
+  return newArray;
+}
+
 class Board extends React.Component {
   renderSquare(i) {
     return (
       <Square
         value={this.props.squares[i]}
         place={i}
+        key={i}
         onClick={() => this.props.onClick(i)}
       />
     );
@@ -51,21 +60,17 @@ class Board extends React.Component {
   render() {
     return (
       <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
+        {convert1DArrayTo2D(
+          Array.from(Array(this.props.squares.length).keys())
+        ).map((row, index) => {
+          return (
+            <div className="board-row" key={index}>
+              {row.map(square => {
+                return this.renderSquare(square);
+              })}
+            </div>
+          );
+        })}
       </div>
     );
   }
