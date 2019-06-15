@@ -8,7 +8,7 @@ import "./index.css";
 // DONE Rewrite Board to use two loops to make the squares instead of hardcoding them.
 // Add a toggle button that lets you sort the moves in either ascending or descending order.
 // When someone wins, highlight the three squares that caused the win.
-// When no one wins, display a message about the result being a draw.
+// DONE When no one wins, display a message about the result being a draw.
 
 function calculateWinner(squares) {
   const lines = [
@@ -115,7 +115,8 @@ class Game extends React.Component {
         }
       ],
       stepNumber: 0,
-      xIsNext: true
+      xIsNext: true,
+      winningRow: Array(3).fill(null)
     };
     this.getNextPlayer = () => {
       return this.state.xIsNext ? "X" : "O";
@@ -169,7 +170,10 @@ class Game extends React.Component {
     let status;
     if (winner) {
       status = "Winner: " + winner;
+    } else if (currentGame.squares.indexOf(null) === -1) {
+      status = "Game is a Tie!";
     } else {
+      console.log();
       status = "Next player: " + this.getNextPlayer();
     }
 
