@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import Clock from "./clock";
 import "./index.css";
 
 // DONE Display the location for each move in the format (col, row) in the move history list.
@@ -191,4 +192,10 @@ class Game extends React.Component {
 
 // ========================================
 
-ReactDOM.render(<Game />, document.getElementById("root"));
+ReactDOM.render(
+  <div>
+    <Clock />
+    <Game />
+  </div>,
+  document.getElementById("root")
+);
